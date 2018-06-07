@@ -1,6 +1,6 @@
 #!/bin/bash
 #Author: Chaoju Wang
-#Version: 1.1
+#Version: 1.2
 #Date:2018-06-08      Mail: cjwang1220@gmail.com
 #Description: A downloder for the digital video recording of NAU Commencement
 
@@ -53,7 +53,12 @@ merge(){
     cat $x.ts >> $filename
     echo "$x.ts merged"
     done
-    echo "Final Vedio: $filename"
+}
+
+clean(){
+    mv -f $filename backup
+    rm -f *.ts
+    mv -f backup $filename
 }
 
 echo "====Start Downloading===="
@@ -65,3 +70,7 @@ echo "====Checking Completed===="
 echo "====Start Merging===="
 merge
 echo "====Merging Completed"
+echo "====Cleaning the cache"
+clean
+echo "====Cleaning Completed"
+echo "Final Vedio: $filename"
