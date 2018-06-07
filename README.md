@@ -19,7 +19,7 @@ You can change the prefix of the TS URL, amount of the ts file, and the subtitle
 
 After you set up the code, run the script using follow command.
 
-    bash download.sh
+    bash download.sh | tee download.log
 
 #### Issues
 

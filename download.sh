@@ -1,6 +1,6 @@
 #!/bin/bash
 #Author: Chaoju Wang
-#Version: 1.0
+#Version: 1.1
 #Date:2018-06-08      Mail: cjwang1220@gmail.com
 #Description: A downloder for the digital video recording of NAU Commencement
 
@@ -10,10 +10,11 @@ amount=396
 url=https://stream.ec.nau.edu/vod/amlst:4004/media_w1659020169_b3178000_
 subtitles=https://player.extended.nau.edu/4004.vtt
 filename="2018 Spring Commencement Friday 4 PM.ts"
+subtitlesname="2018 Spring Commencement Friday 4 PM.vtt"
 
 download(){
-	echo "Downloading Subtitles"
-	wget $subtitles -O subtitles.vtt
+    echo "Downloading Subtitles"
+    wget $subtitles -O $subtitlesname
     for x in {0..$amount}
     do
        echo "Downloading $x.ts"
@@ -30,7 +31,7 @@ check(){
             checkflag=0
         fi
     done
-    if [ $checkflag == 1 ]
+    if [ $checkflag -eq 1 ]
     then
         echo "Check passed!"
     else
@@ -39,9 +40,9 @@ check(){
 }
 
 merge(){
-    if [ -f "${dir}/new.ts" ]; then
-        rm -f new.ts
-        echo "new.ts deleted"
+    if [ -f "${dir}/${filename}" ]; then
+        rm -f $filename
+        echo "$filename is deleted"
     fi
     for x in {0..$amount}
     do
@@ -52,6 +53,7 @@ merge(){
     cat $x.ts >> $filename
     echo "$x.ts merged"
     done
+    echo "Final Vedio: $filename"
 }
 
 echo "====Start Downloading===="
